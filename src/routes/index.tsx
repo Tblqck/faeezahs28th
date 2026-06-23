@@ -1,29 +1,53 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { CountdownGate } from "@/components/birthday/CountdownGate";
+import { Nav } from "@/components/birthday/Nav";
+import { Hero } from "@/components/birthday/Hero";
+import { Story } from "@/components/birthday/Story";
+import { Reasons } from "@/components/birthday/Reasons";
+import { Lessons } from "@/components/birthday/Lessons";
+import { Messages } from "@/components/birthday/Messages";
+import { Promises } from "@/components/birthday/Promises";
+import { Letter } from "@/components/birthday/Letter";
+import { MemoryJar } from "@/components/birthday/MemoryJar";
+import { FinalSurprise } from "@/components/birthday/FinalSurprise";
+import { UNLOCK_DATE } from "@/data/content";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "28 Years of You — For Faeezah" },
+      { name: "robots", content: "noindex, nofollow" },
     ],
   }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
+  const [unlocked, setUnlocked] = useState(false);
+
+  useEffect(() => {
+    setUnlocked(Date.now() >= new Date(UNLOCK_DATE).getTime());
+  }, []);
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="bg-ivory text-espresso">
+      {!unlocked && <CountdownGate onUnlock={() => setUnlocked(true)} />}
+      <Nav />
+      <main>
+        <Hero />
+        <Story />
+        <Reasons />
+        <Lessons />
+        <Messages />
+        <Promises />
+        <Letter />
+        <MemoryJar />
+        <FinalSurprise />
+      </main>
+      <footer className="bg-espresso text-mutedink text-center py-8 text-xs uppercase tracking-[0.3em]">
+        Made with love · July 2026
+      </footer>
     </div>
   );
 }
