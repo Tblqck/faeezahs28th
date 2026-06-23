@@ -24,15 +24,20 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const [mounted, setMounted] = useState(false);
   const [unlocked, setUnlocked] = useState(false);
 
   useEffect(() => {
-    setUnlocked(Date.now() >= new Date(UNLOCK_DATE).getTime());
+    setMounted(true);
+    const bypass =
+      new URLSearchParams(window.location.search).has("preview") ||
+      window.location.hash === "#preview";
+    setUnlocked(bypass || Date.now() >= new Date(UNLOCK_DATE).getTime());
   }, []);
 
   return (
     <div className="bg-ivory text-espresso">
-      {!unlocked && <CountdownGate onUnlock={() => setUnlocked(true)} />}
+      {mounted && !unlocked && <CountdownGate onUnlock={() => setUnlocked(true)} />}
       <Nav />
       <main>
         <Hero />
