@@ -5,35 +5,36 @@ import { Reveal } from "./Reveal";
 
 function Tile({ index, note }: { index: number; note: string }) {
   const [open, setOpen] = useState(false);
+
   return (
     <button
       onClick={() => setOpen((o) => !o)}
-      className="relative aspect-square w-full"
-      style={{ perspective: 800 }}
+      className="relative w-full"
+      style={{ perspective: 1000 }}
     >
       <motion.div
         animate={{ rotateY: open ? 180 : 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="relative w-full h-full"
+        className="relative w-full h-full min-h-[160px] sm:min-h-[180px]"
         style={{ transformStyle: "preserve-3d" }}
       >
         <div
-          className="absolute inset-0 bg-parchment border border-gold/40 flex flex-col items-center justify-center"
+          className="absolute inset-0 bg-parchment border border-gold/40 flex flex-col items-center justify-center px-6 py-5"
           style={{ backfaceVisibility: "hidden" }}
         >
-          <svg width="22" height="16" viewBox="0 0 22 16" fill="none" className="text-gold">
+          <svg width="26" height="18" viewBox="0 0 22 16" fill="none" className="text-gold">
             <rect x="0.5" y="0.5" width="21" height="15" stroke="currentColor" />
             <path d="M1 1L11 9L21 1" stroke="currentColor" fill="none" />
           </svg>
-          <span className="mt-2 font-serif text-sm text-mutedink">
+          <span className="mt-2 font-serif text-base text-mutedink">
             {String(index + 1).padStart(2, "0")}
           </span>
         </div>
         <div
-          className="absolute inset-0 bg-espresso p-3 flex items-center justify-center text-center"
+          className="absolute inset-0 bg-espresso p-4 sm:p-5 flex items-center justify-center text-center"
           style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
         >
-          <span className="font-serif italic text-gold-light text-[11px] sm:text-xs leading-snug">
+          <span className="font-serif italic text-gold-light text-xs sm:text-sm leading-snug sm:leading-normal">
             {note}
           </span>
         </div>
@@ -56,8 +57,8 @@ export function MemoryJar() {
         </Reveal>
 
         <div
-          className="mt-14 grid gap-3"
-          style={{ gridTemplateColumns: "repeat(auto-fill, minmax(110px, 1fr))" }}
+          className="mt-14 grid gap-4"
+          style={{ gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))" }}
         >
           {memoryNotes.map((n, i) => (
             <Tile key={i} index={i} note={n} />

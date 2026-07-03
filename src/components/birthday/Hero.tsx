@@ -1,6 +1,17 @@
+import heroImage from "@/data/t2.jpg";
+import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 import { Reveal } from "./Reveal";
 
 export function Hero() {
+  const [zoomed, setZoomed] = useState(false);
+
+  useEffect(() => {
+    if (!zoomed) return;
+    const id = setTimeout(() => setZoomed(false), 1000);
+    return () => clearTimeout(id);
+  }, [zoomed]);
+
   return (
     <section
       id="top"
@@ -31,10 +42,23 @@ export function Hero() {
         </Reveal>
 
         <Reveal delay={0.55}>
-          <div className="mt-12 flex justify-center">
-            <div className="w-[220px] h-[220px] rounded-full bg-parchment border-2 border-gold flex items-center justify-center text-mutedink font-serif italic text-sm">
-              Your Photo Here
-            </div>
+          <div className="mt-12 flex justify-center overflow-visible">
+            <motion.button
+              type="button"
+              onClick={() => setZoomed(true)}
+              animate={{ scale: zoomed ? 5 : 1 }}
+              transition={{ type: "spring", stiffness: 220, damping: 22 }}
+              className="relative w-[240px] h-[240px] sm:w-[260px] sm:h-[260px] rounded-full border-2 border-gold overflow-hidden shadow-xl shadow-espresso/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-ivory"
+              aria-label="Zoom portrait"
+            >
+              <img
+                src={heroImage}
+                alt="Faeezah portrait"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-espresso/25 via-transparent to-ivory/5" />
+            </motion.button>
           </div>
         </Reveal>
 

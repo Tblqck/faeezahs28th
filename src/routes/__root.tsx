@@ -10,7 +10,6 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
   return (
@@ -38,7 +37,6 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
 
   return (
@@ -84,8 +82,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "A personalized digital love letter celebrating a wife's 28th birthday with heartfelt stories, memories, and promises." },
       { property: "og:description", content: "A personalized digital love letter celebrating a wife's 28th birthday with heartfelt stories, memories, and promises." },
       { name: "twitter:description", content: "A personalized digital love letter celebrating a wife's 28th birthday with heartfelt stories, memories, and promises." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/58fa0af4-10e3-46f3-b090-d8e3f3497d57/id-preview-01b828f1--e10e01aa-137a-4c2a-8d38-f37ded011dee.lovable.app-1782243247508.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/58fa0af4-10e3-46f3-b090-d8e3f3497d57/id-preview-01b828f1--e10e01aa-137a-4c2a-8d38-f37ded011dee.lovable.app-1782243247508.png" },
+      { property: "og:image", content: "/og-image.png" },
+      { name: "twitter:image", content: "/og-image.png" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "website" },
     ],

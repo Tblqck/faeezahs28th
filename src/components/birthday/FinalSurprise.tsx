@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import finalVideo from "@/data/video_2026-07-03_10-33-39.mp4";
 import { Reveal } from "./Reveal";
 
 export function FinalSurprise() {
@@ -37,20 +38,17 @@ export function FinalSurprise() {
                 transition={{ duration: 0.8 }}
                 className="flex flex-col items-center"
               >
-                <div
-                  className="relative bg-black/60 border border-gold/40 flex items-center justify-center"
-                  style={{ width: "100%", maxWidth: 480, aspectRatio: "16 / 9" }}
-                >
-                  <div className="w-16 h-16 rounded-full border-2 border-gold flex items-center justify-center">
-                    <div
-                      className="w-0 h-0 ml-1"
-                      style={{
-                        borderTop: "10px solid transparent",
-                        borderBottom: "10px solid transparent",
-                        borderLeft: "16px solid var(--gold)",
-                      }}
-                    />
-                  </div>
+                <div className="relative bg-black/80 border border-gold/40 rounded-xl overflow-hidden shadow-2xl shadow-espresso/40" style={{ width: "100%", maxWidth: 520 }}>
+                  <video
+                    src={finalVideo}
+                    controls
+                    playsInline
+                    preload="metadata"
+                    className="block w-full h-full"
+                    style={{ aspectRatio: "16 / 9", backgroundColor: "#0f0a05" }}
+                  >
+                    Your browser does not support the video tag.
+                  </video>
                 </div>
                 <p className="mt-4 font-serif italic text-gold-light">
                   Your personal video message from him.
